@@ -2,6 +2,10 @@ import OpenAI from 'openai'
 
 import { getEnvironment } from 'utils/env'
 
+const defaultModel = 'gpt-3.5-turbo'
+
+const defaultTemperature = 0
+
 let client: OpenAI
 
 function getOpenAI(): OpenAI {
@@ -16,17 +20,27 @@ function getOpenAI(): OpenAI {
   return client
 }
 
-async function runCompletion(messages, model = 'gpt-3.5-turbo', temperature = 0): Promise<String> {
+function buildCompletionOptions(options: { temperature?: number; model?: string }): {
+  temperature: number
+  model: string
+} {
+  if (!options) {
+    options = {}
+  }
+
+  return {
+    temperature: options.temperature || defaultTemperature,
+    model: options.model || defaultModel,
+  }
+}
+
+async function runCompletion(messages, options?: { temperature?: number; model?: string }): Promise<String> {
   const ai = getOpenAI()
 
-  const completion = await ai.chat.completions.create({
-    model,
-    temperature,
-    messages,
-  })
+  const completion = await ai.chat.completions.create({ messages, ...buildCompletionOptions(options) })
 
   if (!completion.choices) {
-    throw new Error('Unable to get completion choices.')
+    throw new Error('An error occurred while running the completion.')
   }
 
   return completion.choices[0].message.content
