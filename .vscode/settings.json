@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/._*": true,
+    "**/.sanity": true,
+    "**/.turbo": true,
+    "**/.vercel": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "prettier.useEditorConfig": true,
+  "prettier.useTabs": false
+}
