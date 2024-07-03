@@ -1,5 +1,5 @@
 {
-  "name": "simple-openai-chat",
+  "name": "1-simple-openai-chat",
   "private": true,
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",

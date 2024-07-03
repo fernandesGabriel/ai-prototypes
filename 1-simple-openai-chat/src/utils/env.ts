@@ -17,7 +17,7 @@ function loadEnvironments(): void {
   isDotenvBooted = true
 }
 
-function getEnvironment(key: keyof NodeJS.ProcessEnv): string {
+function getEnvironment(key: keyof NodeJS.ProcessEnv): string | never {
   if (!isDotenvBooted) {
     throw new Error('You must call loadEnvironments before calling getEnvironment')
   }

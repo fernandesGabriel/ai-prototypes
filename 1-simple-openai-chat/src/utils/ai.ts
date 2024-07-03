@@ -34,7 +34,7 @@ function buildCompletionOptions(options: { temperature?: number; model?: string 
   }
 }
 
-async function runCompletion(messages, options?: { temperature?: number; model?: string }): Promise<String> {
+async function runCompletion(messages, options?: { temperature?: number; model?: string }): Promise<string | never> {
   const ai = getOpenAI()
 
   const completion = await ai.chat.completions.create({ messages, ...buildCompletionOptions(options) })
