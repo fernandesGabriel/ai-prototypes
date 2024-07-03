@@ -34,8 +34,9 @@ function buildCompletionOptions(options: { temperature?: number; model?: string 
   }
 }
 
-async function runCompletion<ContentType = object>(
+async function runFunctionCompletion<ContentType = object[]>(
   messages,
+  tools,
   options?: { temperature?: number; model?: string }
 ): Promise<ContentType | never> {
   const ai = getOpenAI()
@@ -50,22 +51,32 @@ async function runCompletion<ContentType = object>(
   const completion = await ai.chat.completions.create({
     ...buildCompletionOptions(options),
     messages: [...systemMessages, ...messages],
-    response_format: { type: 'json_object' },
+    tools: tools,
+    tool_choice: 'required',
   })
 
   if (!completion.choices) {
     throw new Error('An error occurred while running the completion.')
   }
 
-  let json: ContentType
+  if (!completion.choices[0].message.tool_calls) {
+    throw new Error('An error occurred while running the completion.')
+  }
+
+  let callbacks
 
   try {
-    json = JSON.parse(completion.choices[0].message.content)
+    callbacks = completion.choices[0].message.tool_calls.map((callback) => {
+      return {
+        name: callback.function.name,
+        arguments: JSON.parse(callback.function.arguments),
+      }
+    })
   } catch (error) {
     throw new Error('An error occurred while parsing the completion JSON.')
   }
 
-  return json
+  return callbacks
 }
 
-export { getOpenAI, runCompletion }
+export { getOpenAI, runFunctionCompletion }

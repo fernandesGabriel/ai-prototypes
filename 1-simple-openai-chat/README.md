@@ -1,6 +1,6 @@
 # Simple OpenAI Chat
 
-This is a simple completion chatbot using OpenAI's GPT-3.5-TURBO.
+This is a simple completion chatbot using OpenAI's `gpt-3.5-turbo`.
 
 ## Commands
 

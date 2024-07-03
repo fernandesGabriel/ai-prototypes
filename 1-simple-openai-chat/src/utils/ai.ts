@@ -37,7 +37,10 @@ function buildCompletionOptions(options: { temperature?: number; model?: string 
 async function runCompletion(messages, options?: { temperature?: number; model?: string }): Promise<string | never> {
   const ai = getOpenAI()
 
-  const completion = await ai.chat.completions.create({ messages, ...buildCompletionOptions(options) })
+  const completion = await ai.chat.completions.create({
+    ...buildCompletionOptions(options),
+    messages,
+  })
 
   if (!completion.choices) {
     throw new Error('An error occurred while running the completion.')

@@ -1,11 +1,12 @@
 {
-  "name": "1-simple-openai-chat",
+  "name": "3-simple-openai-json-chat",
   "private": true,
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "format": "pnpm run --workspace-root format"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.32.34",
     "dotenv": "^16.4.5",
     "openai": "^4.52.3"
   },
