@@ -5,3 +5,4 @@ This repository contains a collection of AI prototypes developed for study and d
 ## Prototypes
 
 1. [Simple OpenAI Chat](1-simple-openai-chat/README.md)
+2. [Simple OpenAI JSON Chat](2-simple-openai-json-chat/README.md)
